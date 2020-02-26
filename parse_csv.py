@@ -1,5 +1,20 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import csv
+
+
+def parseCsv(filePath):
+    columnNames = ["First Name", "Last Name ", "Email Address", "Mobile Number", "Resume"]
+    op = []
+    with open(filePath) as csvFile:
+        reader = csv.DictReader(csvFile, delimiter=",")
+        count = 0
+        for row in reader:
+            if count == 0:
+                count += 1
+                continue
+            op.append(row)
+    return op
 
 
 def getCandidatesData():
@@ -11,4 +26,5 @@ def getCandidatesData():
 
 
 if __name__ == '__main__':
-    print(getCandidatesData())
+    print(parseCsv("/Users/saurabhmardikar/Downloads/Sample Candidate List - Sheet1.csv"))
+    # print(getCandidatesData())
